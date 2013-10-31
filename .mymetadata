@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="BusinesscardManagerSystem"
+  id="myeclipse.1383047152114"
+  context-root="/card"
+  j2ee-spec="6.0"
+  archive="BusinesscardManagerSystem.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+
+
+	<package name="struts2" extends="struts-default">
+		<global-results>
+			<result name="novisitor">/login.jsp</result>
+		</global-results>
+		<action name="toLogin" class="com.sumy.action.CheckUser">
+			<result name="success">/index.jsp</result>
+			<result name="error">/login.jsp?id=1</result>
+			<result name="failer">/login.jsp?id=0</result>
+		</action>
+		<action name="toRegist" class="com.sumy.action.RegistUser">
+			<result name="success">/login.jsp?id=2</result>
+			<result name="notequal">/register.jsp?id=0</result>
+			<result name="error">/register.jsp?id=1</result>
+		</action>
+		<action name="toAddCard" class="com.sumy.action.AddCard">
+			<result name="success" type="redirect">toListCard</result>
+			<result name="error">/index.jsp</result>
+		</action>
+		<action name="toListCard" class="com.sumy.action.ListCard">
+			<result name="success">/usercard/list.jsp</result>
+		</action>
+		<action name="toModifyCard" class="com.sumy.action.ModifyCard">
+			<result name="success">/usercard/modify.jsp</result>
+		</action>
+		<action name="toUpdateCard" class="com.sumy.action.UpdateCard">
+			<result name="success" type="redirect">toListCard</result>
+		</action>
+	</package>
+
+</struts>
