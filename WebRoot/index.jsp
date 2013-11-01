@@ -17,7 +17,13 @@
 </head>
 <body>
 	<s:include value="/top.jsp" />
-	hello world
+	<div class="jumbotron">
+		<h1>欢迎你，小伙伴。</h1>
+		<p>要使用功能，可是要登录的呀。</p>
+		<p>
+			<a class="btn btn-primary btn-lg" role="button">单击左侧以开始</a>
+		</p>
+	</div>
 	<br>
 	<s:include value="/foot.jsp" />
 </body>

@@ -38,6 +38,8 @@ public class ModifyCard extends ActionSupport {
 		if (visitor == null)
 			return "novisitor";
 		usercard = Database.getCardbyId(Integer.parseInt(cardid));
+		if (usercard.getIsdel() == 1)
+			return "modifydelcard";
 		if (usercard == null)
 			return "cardiderror";
 		if (usercard.getOwner() != visitor.getId())

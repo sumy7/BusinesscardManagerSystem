@@ -33,7 +33,10 @@
 		<div class="list-group">
 			<a href="index.jsp" class="list-group-item"> 主页 </a> <a
 				href="toListCard_list" class="list-group-item">浏览</a> <a
-				href="toInputCard" class="list-group-item">添加名片</a> <a
+				href="toInputCard" class="list-group-item">添加名片</a>
+				<a
+				href="toSearchCard" class="list-group-item">搜索名片</a>
+				 <a
 				href="toListCard_recycle" class="list-group-item">回收站</a>
 		</div>
 	</div>
