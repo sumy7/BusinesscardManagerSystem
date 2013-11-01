@@ -32,9 +32,34 @@ public class ListCard extends ActionSupport {
 		if (visitor == null)
 			return "novisitor";
 
-		cardlist = Database.getCardlist(visitor.getId());
+		cardlist = Database.getCardlist(visitor.getId(),0);
 		System.out.println(cardlist.toString());
 		return "success";
 	}
+	public String list() throws Exception {
+		OnlineUser visitor = null;
+		ActionContext actionContext = ActionContext.getContext();
+		Map session = actionContext.getSession();
+		visitor = (OnlineUser) session.get("visitor");
 
+		if (visitor == null)
+			return "novisitor";
+
+		cardlist = Database.getCardlist(visitor.getId(),0);
+		System.out.println(cardlist.toString());
+		return "success";
+	}
+	public String recycle() throws Exception{
+		OnlineUser visitor = null;
+		ActionContext actionContext = ActionContext.getContext();
+		Map session = actionContext.getSession();
+		visitor = (OnlineUser) session.get("visitor");
+
+		if (visitor == null)
+			return "novisitor";
+
+		cardlist = Database.getCardlist(visitor.getId(),1);
+		System.out.println(cardlist.toString());
+		return "recycle";
+	}
 }

@@ -45,12 +45,12 @@ public class Database {
 		return database.getConn();
 	}
 
-	public static ArrayList<Card> getCardlist(int owner) throws Exception {
+	public static ArrayList<Card> getCardlist(int owner,int isdel) throws Exception {
 		ArrayList<Card> resultlist = new ArrayList<Card>();
 		String sql = "select * from cardinfo where isdel=? and owner=?;";
 		Connection conn = getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setInt(1, 0);
+		ps.setInt(1, isdel);
 		ps.setInt(2, owner);
 		ResultSet rs = ps.executeQuery();
 		resultlist.clear();
@@ -69,7 +69,6 @@ public class Database {
 		}
 		return resultlist;
 	}
-
 	public static Card getCardbyId(int id) throws Exception {
 		Connection conn = getConnection();
 		String sql = "select * from cardinfo where id=?;";
@@ -90,5 +89,32 @@ public class Database {
 			card.setIsdel(rs.getInt(9));
 		}
 		return card;
+	}
+	public static boolean moveCardtoRecycle(int id) throws Exception
+	{
+		Connection conn = getConnection();
+		String sql = "update cardinfo set isdel=1 where id=?;";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, id);
+		ps.execute();
+		return true;
+	}
+	public static boolean destroyCardfromRecycle(int id) throws Exception
+	{
+		Connection conn = getConnection();
+		String sql = "delete from cardinfo where id=?;";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, id);
+		ps.execute();
+		return true;
+	}
+	public static boolean moveCardtoList(int id) throws Exception
+	{
+		Connection conn = getConnection();
+		String sql = "update cardinfo set isdel=0 where id=?;";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, id);
+		ps.execute();
+		return true;
 	}
 }

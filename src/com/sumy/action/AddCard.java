@@ -30,7 +30,8 @@ public class AddCard extends ActionSupport {
 
 		if (visitor == null)
 			return "novisitor";
-
+		if (usercard.getName()==null || usercard.getName().equals(""))
+			return "badcard";
 		Connection conn = Database.getConnection();
 		String sql;
 
@@ -48,5 +49,15 @@ public class AddCard extends ActionSupport {
 
 		return "success";
 	}
+	public String redirect() throws Exception
+	{
+		OnlineUser visitor = null;
+		ActionContext actionContext = ActionContext.getContext();
+		Map session = actionContext.getSession();
+		visitor = (OnlineUser) session.get("visitor");
 
+		if (visitor == null)
+			return "novisitor";
+		return "success";
+	}
 }

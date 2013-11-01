@@ -18,7 +18,7 @@ public class CheckUser extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		if (user == null)
-			return ("error");
+			return "error";
 		if (Database.checkuser(user.getUsername(), user.getPassword()))
 			return "success";
 		return "failer";

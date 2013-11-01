@@ -12,7 +12,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>显示名片</title>
+<title>回收站</title>
 <s:include value="/head.jsp" />
 </head>
 <body>
@@ -25,8 +25,8 @@
 			<td>电话</td>
 			<td>电子邮箱</td>
 			<td>住址</td>
-			<td>修改</td>
-			<td>删除</td>
+			<td>还原</td>
+			<td>彻底删除</td>
 		</tr>
 		<s:iterator value="cardlist" id="iter" status="st">
 			<tr>
@@ -36,21 +36,24 @@
 				<td><s:property value="#iter.tel" /></td>
 				<td><s:property value="#iter.email" /></td>
 				<td><s:property value="#iter.address" /></td>
-				<s:url id="modifyurl" action="toModifyCard">
+				<s:url id="recycleurl" action="toRecycleCard">
 					<s:param name="cardid">
 						<s:property value="#iter.id" />
 					</s:param>
 				</s:url>
-				<td><a class="btn btn-primary" role="button" href="<s:property value='modifyurl' />">修改</a></td>
-								<s:url id="delurl" action="toDelCard">
+				<td><a class="btn btn-primary" role="button"
+					href="<s:property value='recycleurl' />">还原</a></td>
+				<s:url id="destroyurl" action="toDestroyCard">
 					<s:param name="cardid">
 						<s:property value="#iter.id" />
 					</s:param>
 				</s:url>
-				<td><a class="btn btn-danger" role="button" href="<s:property value='delurl' />">删除</a></td>
+				<td><a class="btn btn-danger" role="button"
+					href="<s:property value='destroyurl' />">彻底删除</a></td>
 			</tr>
 		</s:iterator>
 	</table>
+
 	<s:include value="/foot.jsp" />
 </body>
 </html>

@@ -20,13 +20,9 @@
 </head>
 <body>
 	<s:include value="/top.jsp" />
-	您已经成功【注销登录】。
-	<br>
-	<br>
-	<a href="index.jsp">返回首页</a>
-	<br>
-	<br>
-	<a href="login.jsp">重新登录</a>
+	<p class="lead">您已经成功【注销登录】。</p>
+	<p><a type="button" class="btn btn-primary" href="index.jsp">返回首页</a></p>
+	<p><a type="button" class="btn btn-default" href="login.jsp">重新登录</a></p>
 	<br>
 	<br>
 	<s:include value="/foot.jsp" />

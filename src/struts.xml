@@ -24,17 +24,31 @@
 			<result name="error">/register.jsp?id=1</result>
 		</action>
 		<action name="toAddCard" class="com.sumy.action.AddCard">
-			<result name="success" type="redirect">toListCard</result>
+			<result name="success" type="redirect">toListCard_list</result>
+			<result name="badcard">/usercard/add.jsp</result>
 			<result name="error">/index.jsp</result>
 		</action>
-		<action name="toListCard" class="com.sumy.action.ListCard">
+		<action name="toInputCard" class="com.sumy.action.AddCard" method="redirect">
+		    <result name="success">/usercard/add.jsp</result>
+		</action>
+		<action name="toListCard_*" class="com.sumy.action.ListCard" method="{1}">
 			<result name="success">/usercard/list.jsp</result>
+			<result name="recycle">/usercard/recycle.jsp</result>
 		</action>
 		<action name="toModifyCard" class="com.sumy.action.ModifyCard">
 			<result name="success">/usercard/modify.jsp</result>
 		</action>
 		<action name="toUpdateCard" class="com.sumy.action.UpdateCard">
-			<result name="success" type="redirect">toListCard</result>
+			<result name="success" type="redirect">toListCard_list</result>
+		</action>
+		<action name="toDelCard" class="com.sumy.action.DeleteCard">
+			<result name="success" type="redirect">toListCard_list</result>
+		</action>
+		<action name="toDestroyCard" class="com.sumy.action.DestroyCard">
+			<result name="success" type="redirect">toListCard_recycle</result>
+		</action>
+		<action name="toRecycleCard" class="com.sumy.action.RecycleCard">
+		    <result name="success" type="redirect">toListCard_recycle</result>
 		</action>
 	</package>
 
