@@ -1,8 +1,12 @@
 package com.sumy.action;
 
+import java.util.Map;
+
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sumy.dao.Database;
 import com.sumy.type.LoginUser;
+import com.sumy.type.OnlineUser;
 
 public class CheckUser extends ActionSupport {
 	private LoginUser user = new LoginUser();
@@ -19,8 +23,14 @@ public class CheckUser extends ActionSupport {
 	public String execute() throws Exception {
 		if (user == null)
 			return "error";
-		if (Database.checkuser(user.getUsername(), user.getPassword()))
+		OnlineUser visitor=Database.checkuser(user.getUsername(), user.getPassword());
+		if (visitor!=null)
+		{
+			ActionContext actionContext = ActionContext.getContext();
+			Map session = actionContext.getSession();
+			session.put("visitor", visitor);
 			return "success";
+		}
 		return "failer";
 	}
 

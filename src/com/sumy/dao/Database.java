@@ -16,7 +16,18 @@ import com.sumy.type.OnlineUser;
 public class Database {
 	private static IDatabase database = MysqlDao.getInstance();
 
-	public static boolean checkuser(String username, String password)
+	public static void RegistUser(String username, String password, int power)
+			throws Exception {
+		String sql = "insert into user(logname,passwd,power) values(?,?,?)";
+		Connection conn = database.getConn();
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setString(1, username);
+		ps.setString(2, password);
+		ps.setInt(3, power);
+		ps.execute();
+	}
+
+	public static OnlineUser checkuser(String username, String password)
 			throws Exception {
 		String sql = "select * from user where logname like ?;";
 		Connection conn = database.getConn();
@@ -32,13 +43,30 @@ public class Database {
 				visitor.setId((Integer) rowmap.get("id"));
 				visitor.setUsername((String) rowmap.get("logname"));
 				visitor.setPower((Integer) rowmap.get("power"));
-				ActionContext actionContext = ActionContext.getContext();
-				Map session = actionContext.getSession();
-				session.put("visitor", visitor);
-				return true;
+				return visitor;
 			}
 		}
-		return false;
+		return null;
+	}
+
+	public static OnlineUser findUserbyname(String username) throws Exception {
+		String sql = "select * from user where logname like ?;";
+		Connection conn = database.getConn();
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setString(1, username);
+		ResultSet rs = ps.executeQuery();
+		List rslist = CovertList.convertList(rs);
+		for (int i = 0; i < rslist.size(); i++) {
+			Map rowmap = (HashMap) rslist.get(i);
+			if (rowmap.get("logname").equals(username)) {
+				OnlineUser visitor = new OnlineUser();
+				visitor.setId((Integer) rowmap.get("id"));
+				visitor.setUsername((String) rowmap.get("logname"));
+				visitor.setPower((Integer) rowmap.get("power"));
+				return visitor;
+			}
+		}
+		return null;
 	}
 
 	public static Connection getConnection() {

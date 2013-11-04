@@ -16,6 +16,8 @@
 
 <title>注册</title>
 <s:include value="/head.jsp" />
+
+<script type="text/javascript" src="js/registcheckuser.js"></script>
 </head>
 
 <body>
@@ -56,7 +58,8 @@
 				<div class="form-group">
 					<label for="exampleInputEmail1">用户名</label> <input type="text"
 						class="form-control" id="registInputUsername" placeholder="请输入用户名"
-						name="username">
+						name="username"> <span class="help-block"
+						style="color: red" id="vldUserName"></span>
 				</div>
 				<div class="form-group">
 					<label for="exampleInputPassword1">密码</label> <input
@@ -66,9 +69,11 @@
 				<div class="form-group">
 					<label for="exampleInputPassword1">重复密码</label> <input
 						type="password" class="form-control" id="registInputRepeatPass"
-						placeholder="请重复输入密码" name="repeatpass">
+						placeholder="请重复输入密码" name="repeatpass"><span
+						class="help-block" style="color: red" id="vldPassword"></span>
 				</div>
-				<button type="submit" class="btn btn-default">注册</button>
+				<button type="submit" class="btn btn-primary" disabled="disabled"
+					id="btn-submit">注册</button>
 				<button type="reset" class="btn btn-default">重置</button>
 			</form>
 		</div>

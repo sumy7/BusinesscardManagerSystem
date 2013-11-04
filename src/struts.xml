@@ -22,6 +22,8 @@
 			<result name="success">/login.jsp?id=2</result>
 			<result name="notequal">/register.jsp?id=0</result>
 			<result name="error">/register.jsp?id=1</result>
+			<result name="infonull">/register.jsp?id=1</result>
+			<result name="nameexist">/register.jsp?id=1</result>
 		</action>
 		<action name="toAddCard" class="com.sumy.action.AddCard">
 			<result name="success" type="redirect">toListCard_list</result>
@@ -58,4 +60,10 @@
 		</action>
 	</package>
 
+	<package name="ajaxValidate" namespace="/" extends="json-default">
+		<action name="ajaxValidate_*" class="com.sumy.action.RegistUser"
+			method="{1}">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
 </struts>
