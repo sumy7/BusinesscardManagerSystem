@@ -44,12 +44,12 @@ public class RegistUser extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		if(username.equals("") || password.equals(""))
+		if (username.equals("") || password.equals(""))
 			return "infonull";
 		if (!password.equals(repeatpass))
 			return "notequal";
 		OnlineUser user = Database.findUserbyname(username);
-		if(user!=null)
+		if (user != null)
 			return "nameexist";
 		Database.RegistUser(username, password, 1);
 		return "success";

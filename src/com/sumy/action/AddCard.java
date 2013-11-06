@@ -7,6 +7,7 @@ import java.util.Map;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sumy.dao.Database;
+import com.sumy.tools.SessionOperationAdapter;
 import com.sumy.type.Card;
 import com.sumy.type.OnlineUser;
 
@@ -23,14 +24,11 @@ public class AddCard extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		OnlineUser visitor = null;
-		ActionContext actionContext = ActionContext.getContext();
-		Map session = actionContext.getSession();
-		visitor = (OnlineUser) session.get("visitor");
+		OnlineUser visitor = SessionOperationAdapter.sessionGetUser();
 
 		if (visitor == null)
 			return "novisitor";
-		if (usercard.getName()==null || usercard.getName().equals(""))
+		if (usercard.getName() == null || usercard.getName().equals(""))
 			return "badcard";
 		Connection conn = Database.getConnection();
 		String sql;
@@ -49,12 +47,9 @@ public class AddCard extends ActionSupport {
 
 		return "success";
 	}
-	public String redirect() throws Exception
-	{
-		OnlineUser visitor = null;
-		ActionContext actionContext = ActionContext.getContext();
-		Map session = actionContext.getSession();
-		visitor = (OnlineUser) session.get("visitor");
+
+	public String redirect() throws Exception {
+		OnlineUser visitor = SessionOperationAdapter.sessionGetUser();
 
 		if (visitor == null)
 			return "novisitor";

@@ -7,4 +7,5 @@
 <div style="text-align:center;margin-top:30px;clear:both;font-size:80%">
 	<hr />
 	All Copyright Reserved ©2013 Sumy <br />
+	Your Session ID is：<%=session.getId() %><br />
 </div>

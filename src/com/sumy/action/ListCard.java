@@ -6,6 +6,7 @@ import java.util.Map;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sumy.dao.Database;
+import com.sumy.tools.SessionOperationAdapter;
 import com.sumy.type.Card;
 import com.sumy.type.OnlineUser;
 
@@ -24,41 +25,34 @@ public class ListCard extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		OnlineUser visitor = null;
-		ActionContext actionContext = ActionContext.getContext();
-		Map session = actionContext.getSession();
-		visitor = (OnlineUser) session.get("visitor");
+		OnlineUser visitor = SessionOperationAdapter.sessionGetUser();
 
 		if (visitor == null)
 			return "novisitor";
 
-		cardlist = Database.getCardlist(visitor.getId(),0);
+		cardlist = Database.getCardlist(visitor.getId(), 0);
 		System.out.println(cardlist.toString());
 		return "success";
 	}
+
 	public String list() throws Exception {
-		OnlineUser visitor = null;
-		ActionContext actionContext = ActionContext.getContext();
-		Map session = actionContext.getSession();
-		visitor = (OnlineUser) session.get("visitor");
+		OnlineUser visitor = SessionOperationAdapter.sessionGetUser();
 
 		if (visitor == null)
 			return "novisitor";
 
-		cardlist = Database.getCardlist(visitor.getId(),0);
+		cardlist = Database.getCardlist(visitor.getId(), 0);
 		System.out.println(cardlist.toString());
 		return "success";
 	}
-	public String recycle() throws Exception{
-		OnlineUser visitor = null;
-		ActionContext actionContext = ActionContext.getContext();
-		Map session = actionContext.getSession();
-		visitor = (OnlineUser) session.get("visitor");
+
+	public String recycle() throws Exception {
+		OnlineUser visitor = SessionOperationAdapter.sessionGetUser();
 
 		if (visitor == null)
 			return "novisitor";
 
-		cardlist = Database.getCardlist(visitor.getId(),1);
+		cardlist = Database.getCardlist(visitor.getId(), 1);
 		System.out.println(cardlist.toString());
 		return "recycle";
 	}

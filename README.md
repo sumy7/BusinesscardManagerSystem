@@ -3,6 +3,9 @@
 
 Simple Card Manager System for J2EE Homework.  
 
+演示地址：[http://sumycard.duapp.com/](http://sumycard.duapp.com/)  
+演示地址的代码根据演示空间的特性，重构了**数据库类**和 **Session** 操作。  
+
 ### 简介
 
 *2013-11-4 需求更新*  
@@ -50,9 +53,10 @@ Simple Card Manager System for J2EE Homework.
 
 ####还想实现的功能有：
 
-1. **需求更新：** 以仿真形式显示名片
-2. **需求更新：** 可以在回收站界面查找名片
-2. 等等
+1. **需求更新：** 以仿真形式显示名片  
+2. **需求更新：** 可以在回收站界面查找名片  
+3. 需要重写 DatabaseDAO  
+4. 等等
 
 #### 存在的问题
 

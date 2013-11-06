@@ -6,6 +6,7 @@ import java.util.Map;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sumy.dao.Database;
+import com.sumy.tools.SessionOperationAdapter;
 import com.sumy.type.Card;
 import com.sumy.type.OnlineUser;
 
@@ -34,10 +35,7 @@ public class SearchCard extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		OnlineUser visitor = null;
-		ActionContext actionContext = ActionContext.getContext();
-		Map session = actionContext.getSession();
-		visitor = (OnlineUser) session.get("visitor");
+		OnlineUser visitor = SessionOperationAdapter.sessionGetUser();
 
 		if (visitor == null)
 			return "novisitor";

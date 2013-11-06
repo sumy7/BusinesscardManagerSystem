@@ -9,6 +9,8 @@
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.i18n.encoding" value="utf-8"></constant>
 
+
+	
 	<package name="struts2" extends="struts-default">
 		<global-results>
 			<result name="novisitor">/login.jsp</result>
@@ -63,7 +65,7 @@
 	<package name="ajaxValidate" namespace="/" extends="json-default">
 		<action name="ajaxValidate_*" class="com.sumy.action.RegistUser"
 			method="{1}">
-			<result name="success" type="json"></result>
+			<result name="success" type="json">/index.jsp</result>
 		</action>
 	</package>
 </struts>
