@@ -10,9 +10,6 @@ import com.sumy.type.OnlineUser;
 
 public class SessionOperationAdapter {
 	public static OnlineUser sessionGetUser() {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		String sessionId = request.getSession().getId();
-		System.out.println("--------------------------------------sessionID:" + sessionId);
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
 		OnlineUser visitor = (OnlineUser) session.get("visitor");
@@ -24,4 +21,10 @@ public class SessionOperationAdapter {
 		Map session = actionContext.getSession();
 		session.put("visitor", visitor);
 	}
+	
+    public static void sessionDelUser(){
+		ActionContext actionContext = ActionContext.getContext();
+		Map session = actionContext.getSession();
+		session.remove("visitor");
+    }
 }

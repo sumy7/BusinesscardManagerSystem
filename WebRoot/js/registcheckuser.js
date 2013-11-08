@@ -36,7 +36,7 @@ function() {
         checkusername: username
       };
       $.post(
-      getRootPath() + "/ajaxValidate/ajaxValidate_toCheckUsername.action", parameter, function(data) {
+      getRootPath() + "/ajaxValidate_toCheckUsername.action", parameter, function(data) {
         if(data.message == "true"){
     	  $("#vldUserName").html("用户名已存在，请使用其它用户名。");
     	  usernameok = false;

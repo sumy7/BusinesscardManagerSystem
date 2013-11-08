@@ -2,6 +2,8 @@ package com.sumy.action;
 
 import java.util.Map;
 
+import org.apache.struts2.json.annotations.JSON;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sumy.dao.Database;
@@ -12,6 +14,7 @@ import com.sumy.type.OnlineUser;
 public class CheckUser extends ActionSupport {
 	private LoginUser user = new LoginUser();
 
+	@JSON(serialize = false)
 	public LoginUser getUser() {
 		return user;
 	}
@@ -33,4 +36,41 @@ public class CheckUser extends ActionSupport {
 		return "failer";
 	}
 
+	public String logout() throws Exception {
+		SessionOperationAdapter.sessionDelUser();
+		return "success";
+	}
+
+	private String islogin;
+	private String visitorname;
+
+	@JSON
+	public String getIslogin() {
+		return islogin;
+	}
+
+	public void setIslogin(String islogin) {
+		this.islogin = islogin;
+	}
+
+	@JSON
+	public String getVisitorname() {
+		return visitorname;
+	}
+
+	public void setVisitorname(String visitorname) {
+		this.visitorname = visitorname;
+	}
+
+	public String toGetSessionName() throws Exception {
+		OnlineUser visitor = SessionOperationAdapter.sessionGetUser();
+		if (visitor == null) {
+			islogin = "false";
+			visitorname = "сн©м";
+		} else {
+			islogin = "true";
+			visitorname = visitor.getUsername();
+		}
+		return "success";
+	}
 }

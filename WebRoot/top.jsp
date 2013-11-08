@@ -18,12 +18,13 @@
 				</li>
 			</s:else>
 			<s:if test="#session.visitor != null">
-				<li><a href="logout.jsp">注销退出</a></li>
+				<li><a href="toLogout">注销退出</a></li>
 			</s:if>
 			<s:else>
 				<li><a href="login.jsp">登录</a>
 				</li>
 			</s:else>
+			
 		</ul>
 	</div>
 </nav>

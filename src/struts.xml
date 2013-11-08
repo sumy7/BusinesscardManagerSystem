@@ -9,8 +9,6 @@
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.i18n.encoding" value="utf-8"></constant>
 
-
-	
 	<package name="struts2" extends="struts-default">
 		<global-results>
 			<result name="novisitor">/login.jsp</result>
@@ -19,6 +17,10 @@
 			<result name="success">/index.jsp</result>
 			<result name="error">/login.jsp?id=1</result>
 			<result name="failer">/login.jsp?id=0</result>
+		</action>
+		<action name="toLogout" class="com.sumy.action.CheckUser"
+			method="logout">
+			<result name="success">/logout.jsp</result>
 		</action>
 		<action name="toRegist" class="com.sumy.action.RegistUser">
 			<result name="success">/login.jsp?id=2</result>
@@ -63,8 +65,12 @@
 	</package>
 
 	<package name="ajaxValidate" namespace="/" extends="json-default">
-		<action name="ajaxValidate_*" class="com.sumy.action.RegistUser"
-			method="{1}">
+		<action name="ajaxValidate_toCheckUsername" class="com.sumy.action.RegistUser"
+			method="toCheckUsername">
+			<result name="success" type="json">/index.jsp</result>
+		</action>
+		<action name="ajaxValidate_toGetVisitorname" class="com.sumy.action.CheckUser"
+			method="toGetSessionName">
 			<result name="success" type="json">/index.jsp</result>
 		</action>
 	</package>
