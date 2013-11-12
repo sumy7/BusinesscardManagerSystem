@@ -1,0 +1,18 @@
+.bussiness-card{
+	border:#909090 1px solid;
+	background:#fff;
+	padding:10px;
+	box-shadow:1px 3px 4px #909090;
+	border-radius:5px;
+}
+
+.bussiness-card:hover{
+	transition:all 0.3s;
+	background-color:rgba(249,249,249,0.5);
+	border:1px solid rgba(0,0,0,0.167);
+	box-shadow:1px 3px 4px rgba(0,0,0,0.167);
+}
+
+.bussiness-card-over{
+	padding:10px;
+}

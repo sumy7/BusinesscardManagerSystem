@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="css/style.css" type="text/css"></link>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 
