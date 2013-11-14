@@ -26,7 +26,7 @@
 			<div class="bussiness-card">
 			<div class="row">
 				<div class="col-sm-4 col-md-4">
-					<img src="upload/default.png" class="img-rounded img-responsive"></img>
+					<img src="<s:property value="#iter.photopath" />" class="img-rounded img-responsive"></img>
 				</div>
 				<div class="col-sm-8 col-md-8">
 					<blockquote>

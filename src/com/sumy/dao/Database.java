@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.sumy.tools.CovertList;
+import com.sumy.tools.UploadFileSave;
 import com.sumy.type.Card;
 import com.sumy.type.OnlineUser;
 
@@ -91,7 +91,7 @@ public class Database {
 			card.setTel(rs.getString(4));
 			card.setEmail(rs.getString(5));
 			card.setAddress(rs.getString(6));
-			card.setPhotopath(rs.getString(7));
+			card.setPhotopath(UploadFileSave.GetFilePath(rs.getString(7)));
 			card.setOwner(rs.getInt(8));
 			card.setIsdel(rs.getInt(9));
 			resultlist.add(card);
@@ -123,7 +123,7 @@ public class Database {
 			card.setTel(rs.getString(4));
 			card.setEmail(rs.getString(5));
 			card.setAddress(rs.getString(6));
-			card.setPhotopath(rs.getString(7));
+			card.setPhotopath(UploadFileSave.GetFilePath(rs.getString(7)));
 			card.setOwner(rs.getInt(8));
 			card.setIsdel(rs.getInt(9));
 			resultlist.add(card);
@@ -147,7 +147,7 @@ public class Database {
 			card.setTel(rs.getString(4));
 			card.setEmail(rs.getString(5));
 			card.setAddress(rs.getString(6));
-			card.setPhotopath(rs.getString(7));
+			card.setPhotopath(UploadFileSave.GetFilePath(rs.getString(7)));
 			card.setOwner(rs.getInt(8));
 			card.setIsdel(rs.getInt(9));
 		}
@@ -178,6 +178,57 @@ public class Database {
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, id);
 		ps.execute();
+		return true;
+	}
+
+	public static boolean insertNewCard(Card usercard, String Photoname,
+			int visitorId) throws Exception {
+		Connection conn = getConnection();
+		String sql;
+		sql = "insert into cardinfo(name,position,tel,email,address,photo,owner,isdel) values(?,?,?,?,?,?,?,?);";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setString(1, usercard.getName());
+		ps.setString(2, usercard.getPositon());
+		ps.setString(3, usercard.getTel());
+		ps.setString(4, usercard.getEmail());
+		ps.setString(5, usercard.getAddress());
+		ps.setString(6, Photoname);
+		ps.setInt(7, visitorId);
+		ps.setInt(8, 0);
+		ps.execute();
+		return true;
+	}
+
+	public static boolean modifyCard(Card usercard, String Photoname)
+			throws Exception {
+		Connection conn = getConnection();
+		String sql;
+		if (Photoname == null) {
+			sql = "update cardinfo set name=?,position=?,tel=?,email=?,address=?,owner=?,isdel=? where id=?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, usercard.getName());
+			ps.setString(2, usercard.getPositon());
+			ps.setString(3, usercard.getTel());
+			ps.setString(4, usercard.getEmail());
+			ps.setString(5, usercard.getAddress());
+			ps.setInt(6, usercard.getOwner());
+			ps.setInt(7, 0);
+			ps.setInt(8, usercard.getId());
+			ps.execute();
+		} else {
+			sql = "update cardinfo set name=?,position=?,tel=?,email=?,address=?,photo=?,owner=?,isdel=? where id=?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, usercard.getName());
+			ps.setString(2, usercard.getPositon());
+			ps.setString(3, usercard.getTel());
+			ps.setString(4, usercard.getEmail());
+			ps.setString(5, usercard.getAddress());
+			ps.setString(6, Photoname);
+			ps.setInt(7, usercard.getOwner());
+			ps.setInt(8, 0);
+			ps.setInt(9, usercard.getId());
+			ps.execute();
+		}
 		return true;
 	}
 }

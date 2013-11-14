@@ -14,6 +14,7 @@
 
 <title>修改名片</title>
 <s:include value="/head.jsp" />
+<script type="text/javascript" src="js/uploadpreview.js"></script>
 </head>
 <body>
 	<s:include value="/top.jsp" />
@@ -23,7 +24,8 @@
 			<h3 class="panel-title">修改名片</h3>
 		</div>
 		<div class="panel-body">
-			<form role="form" action="toUpdateCard" method="post">
+			<form role="form" action="toUpdateCard" method="post"
+				enctype="multipart/form-data">
 				<s:hidden name="usercard.id" value="%{usercard.id}"></s:hidden>
 				<s:hidden name="usercard.photopath" value="%{usercard.photopath}"></s:hidden>
 				<s:hidden name="usercard.owner" value="%{usercard.owner}"></s:hidden>
@@ -55,6 +57,12 @@
 						class="form-control" id="modifyCardInputAddress"
 						placeholder="请输入住址" name="usercard.address"
 						value="<s:property value='usercard.address' />">
+				</div>
+				<div class="form-group">
+					<label for="modifyCardInputFile">选择头像</label> <input type="file"
+						id="upload" name="upload">
+					<p class="help-block">要保留原头像，请留空。</p>
+					<div id="imgDiv"></div>
 				</div>
 				<button type="submit" class="btn btn-default">修改</button>
 				<button class="btn btn-default" onclick="history.go(-1)">取消</button>
