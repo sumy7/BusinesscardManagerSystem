@@ -2,9 +2,6 @@ package com.sumy.tools;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import org.apache.struts2.ServletActionContext;
-
 import com.opensymphony.xwork2.ActionContext;
 import com.sumy.type.OnlineUser;
 
@@ -21,10 +18,10 @@ public class SessionOperationAdapter {
 		Map session = actionContext.getSession();
 		session.put("visitor", visitor);
 	}
-	
-    public static void sessionDelUser(){
+
+	public static void sessionDelUser() {
 		ActionContext actionContext = ActionContext.getContext();
 		Map session = actionContext.getSession();
 		session.remove("visitor");
-    }
+	}
 }

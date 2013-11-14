@@ -1,8 +1,5 @@
 package com.sumy.action;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-
 import org.apache.struts2.json.annotations.JSON;
 
 import com.opensymphony.xwork2.ActionSupport;

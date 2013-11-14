@@ -1,9 +1,7 @@
 package com.sumy.action;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sumy.dao.Database;
 import com.sumy.tools.SessionOperationAdapter;
