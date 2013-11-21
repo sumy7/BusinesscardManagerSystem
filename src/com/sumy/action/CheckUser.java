@@ -4,11 +4,14 @@ import org.apache.struts2.json.annotations.JSON;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.sumy.dao.Database;
+import com.sumy.tools.MyUnicodeStringSource;
 import com.sumy.tools.SessionOperationAdapter;
 import com.sumy.type.LoginUser;
+import com.sumy.type.Message;
 import com.sumy.type.OnlineUser;
 
 public class CheckUser extends ActionSupport {
+	public Message mess = null;
 	private LoginUser user = new LoginUser();
 
 	@JSON(serialize = false)
@@ -22,14 +25,22 @@ public class CheckUser extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		if (user == null)
+		if (user == null || user.getUsername().equals("")
+				|| user.getPassword().equals("")) {
+			mess = new Message(MyUnicodeStringSource.getValue("login_faild"),
+					Message.MESSAGETYPE_DANGER);
 			return "error";
+		}
 		OnlineUser visitor = Database.checkuser(user.getUsername(),
 				user.getPassword());
 		if (visitor != null) {
 			SessionOperationAdapter.sessionSetUser(visitor);
+			mess = new Message(MyUnicodeStringSource.getValue("login_success"),
+					Message.MESSAGETYPE_SUCCESS);
 			return "success";
 		}
+		mess = new Message(MyUnicodeStringSource.getValue("login_pwderror"),
+				Message.MESSAGETYPE_WARNING);
 		return "failer";
 	}
 
@@ -63,11 +74,17 @@ public class CheckUser extends ActionSupport {
 		OnlineUser visitor = SessionOperationAdapter.sessionGetUser();
 		if (visitor == null) {
 			islogin = "false";
-			visitorname = "сн©м";
+			visitorname = "visitor";
 		} else {
 			islogin = "true";
 			visitorname = visitor.getUsername();
 		}
+		return "success";
+	}
+
+	public String redirect() throws Exception {
+		mess = new Message(MyUnicodeStringSource.getValue("login_notlogin"),
+				Message.MESSAGETYPE_INFO);
 		return "success";
 	}
 }

@@ -14,6 +14,7 @@
 
 <title>搜索名片</title>
 <s:include value="/head.jsp" />
+<script type="text/javascript" src="js/jquery.textSearch-1.0.js"></script>
 </head>
 <body>
 	<s:include value="/top.jsp" />
@@ -83,6 +84,9 @@
 	</s:if>
 	</s:iterator>
 	</div>
+	<script>
+		$(".bussiness-card").textSearch($("#searchInput").val());
+	</script>
 	<s:include value="/foot.jsp" />
 </body>
 </html>

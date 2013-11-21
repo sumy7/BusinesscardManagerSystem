@@ -35,14 +35,11 @@ public class SearchCard extends ActionSupport {
 	public String execute() throws Exception {
 		OnlineUser visitor = SessionOperationAdapter.sessionGetUser();
 
-		if (visitor == null)
-			return "novisitor";
 		if (keyword == null) {
 			cardlist = new ArrayList<Card>();
 			return "nokeyword";
 		}
 		keyword = new String(keyword.getBytes("ISO-8859-1"), "UTF-8");
-		System.out.println("keyword" + keyword);
 		cardlist = Database.searchCardlist(keyword, keyword, keyword, keyword,
 				keyword, visitor.getId(), 0);
 		return "success";

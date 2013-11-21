@@ -4,6 +4,8 @@ import org.apache.struts2.json.annotations.JSON;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.sumy.dao.Database;
+import com.sumy.tools.MyUnicodeStringSource;
+import com.sumy.type.Message;
 import com.sumy.type.OnlineUser;
 
 public class RegistUser extends ActionSupport {
@@ -11,6 +13,7 @@ public class RegistUser extends ActionSupport {
 	private String username;
 	private String password;
 	private String repeatpass;
+	public Message mess = null;
 
 	@JSON(serialize = false)
 	public String getUsername() {
@@ -41,14 +44,30 @@ public class RegistUser extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		if (username.equals("") || password.equals(""))
+		username = username.trim();
+		password = password.trim();
+		if (username.equals("") || password.equals("")) {
+			mess = new Message(
+					MyUnicodeStringSource.getValue("regist_infofaild"),
+					Message.MESSAGETYPE_DANGER);
 			return "infonull";
-		if (!password.equals(repeatpass))
+		}
+		if (!password.equals(repeatpass)) {
+			mess = new Message(
+					MyUnicodeStringSource.getValue("regist_pwdnotequal"),
+					Message.MESSAGETYPE_WARNING);
 			return "notequal";
+		}
 		OnlineUser user = Database.findUserbyname(username);
-		if (user != null)
+		if (user != null) {
+			mess = new Message(
+					MyUnicodeStringSource.getValue("regist_nameexist"),
+					Message.MESSAGETYPE_WARNING);
 			return "nameexist";
+		}
 		Database.RegistUser(username, password, 1);
+		mess = new Message(MyUnicodeStringSource.getValue("regist_success"),
+				Message.MESSAGETYPE_SUCCESS);
 		return "success";
 	}
 
@@ -74,7 +93,6 @@ public class RegistUser extends ActionSupport {
 	}
 
 	public String toCheckUsername() throws Exception {
-		System.out.println("tocheckusername" + checkusername);
 		OnlineUser user = Database.findUserbyname(checkusername);
 		if (user == null) {
 			message = "false";

@@ -4,10 +4,12 @@ import java.io.File;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.sumy.dao.Database;
+import com.sumy.tools.MyUnicodeStringSource;
 import com.sumy.tools.RandomString;
 import com.sumy.tools.SessionOperationAdapter;
 import com.sumy.tools.UploadFileSave;
 import com.sumy.type.Card;
+import com.sumy.type.Message;
 import com.sumy.type.OnlineUser;
 
 public class AddCard extends ActionSupport {
@@ -15,6 +17,7 @@ public class AddCard extends ActionSupport {
 	private File upload;
 	private String uploadFileName;
 	private String uploadContentType;
+	public Message mess = null;
 
 	public Card getUsercard() {
 		return usercard;
@@ -52,10 +55,12 @@ public class AddCard extends ActionSupport {
 	public String execute() throws Exception {
 		OnlineUser visitor = SessionOperationAdapter.sessionGetUser();
 
-		if (visitor == null)
-			return "novisitor";
-		if (usercard.getName() == null || usercard.getName().equals(""))
+		if (usercard.getName() == null || usercard.getName().equals("")) {
+			mess = new Message(
+					MyUnicodeStringSource.getValue("card_infoerror"),
+					Message.MESSAGETYPE_WARNING);
 			return "badcard";
+		}
 		String Filename;
 		if (upload == null) {
 			Filename = "";
@@ -67,14 +72,12 @@ public class AddCard extends ActionSupport {
 					Filename);
 		}
 		Database.insertNewCard(usercard, Filename, visitor.getId());
+		mess = new Message(MyUnicodeStringSource.getValue("card_addsuccess"),
+				Message.MESSAGETYPE_SUCCESS);
 		return "success";
 	}
 
 	public String redirect() throws Exception {
-		OnlineUser visitor = SessionOperationAdapter.sessionGetUser();
-
-		if (visitor == null)
-			return "novisitor";
 		return "success";
 	}
 }

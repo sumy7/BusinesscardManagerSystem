@@ -4,15 +4,18 @@ import java.io.File;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.sumy.dao.Database;
+import com.sumy.tools.MyUnicodeStringSource;
 import com.sumy.tools.RandomString;
 import com.sumy.tools.UploadFileSave;
 import com.sumy.type.Card;
+import com.sumy.type.Message;
 
 public class UpdateCard extends ActionSupport {
 	Card usercard = new Card();
 	private File upload;
 	private String uploadFileName;
 	private String uploadContentType;
+	public Message mess = null;
 
 	public Card getUsercard() {
 		return usercard;
@@ -59,6 +62,9 @@ public class UpdateCard extends ActionSupport {
 					Filename);
 		}
 		Database.modifyCard(usercard, Filename);
+		mess = new Message(
+				MyUnicodeStringSource.getValue("card_updatesuccess"),
+				Message.MESSAGETYPE_SUCCESS);
 		return "success";
 	}
 

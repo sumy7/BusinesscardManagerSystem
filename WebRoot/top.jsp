@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <% 
+	request.setCharacterEncoding("UTF-8");
 	SessionOperationAdapter soa = new SessionOperationAdapter();
 	soa.sessionGetUser();
 %>
@@ -47,3 +48,10 @@
 	</div>
 	<div style="float:right;margin:0 0 0 -215px; width:100%">
 		<div style="margin:0 0 0 230px;">
+			<s:if test="mess != null">
+				<div class="alert alert-${mess.messagetype} alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-hidden="true">&times;</button>
+					${mess.message}
+				</div>
+			</s:if>

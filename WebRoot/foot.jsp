@@ -6,6 +6,6 @@
 </div>
 <div style="text-align:center;margin-top:30px;clear:both;font-size:80%">
 	<hr />
-	All Copyright Reserved ©2013 Sumy <br />
+	All Copyright Reserved ©2013 <a href="http://sumy2013.tk" target="_blank">Sumy</a> <br />
 	Your Session ID is：<%=session.getId() %><br />
 </div>

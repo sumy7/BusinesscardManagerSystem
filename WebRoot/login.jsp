@@ -19,42 +19,6 @@
 </head>
 <body>
 	<s:include value="/top.jsp" />
-	<%
-		if (rscode != null) {
-			switch (Integer.parseInt(rscode)) {
-			case 0: {
-	%>
-	<div class="alert alert-warning alert-dismissable">
-		<button type="button" class="close" data-dismiss="alert"
-			aria-hidden="true">&times;</button>
-		用户名或密码错误，请重新输入。
-	</div>
-	<%
-		break;
-			}
-			case 1: {
-	%>
-	<div class="alert alert-danger alert-dismissable">
-		<button type="button" class="close" data-dismiss="alert"
-			aria-hidden="true">&times;</button>
-		参数错误，请重试。
-	</div>
-	<%
-		break;
-			}
-			case 2: {
-	%>
-	<div class="alert alert-success alert-dismissable">
-		<button type="button" class="close" data-dismiss="alert"
-			aria-hidden="true">&times;</button>
-		注册成功，请登录。
-	</div>
-	<%
-		break;
-			}
-			}
-		}
-	%>
 	<div class="panel panel-default"
 		style="margin-right:auto;margin-left:auto">
 		<div class="panel-heading">

@@ -24,7 +24,6 @@ public class UploadFileSave {
 	}
 
 	public static String GetFilePath(String FileName) {
-		System.out.println("path:" + FileName + "---" + FileName.length());
 		if (FileName.trim().length() == 0 || FileName == null)
 			return "upload/default.png";
 		return "upload/" + FileName;

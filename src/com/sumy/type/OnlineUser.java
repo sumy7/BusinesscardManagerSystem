@@ -1,6 +1,10 @@
 package com.sumy.type;
 
-public class OnlineUser {
+import java.io.Serializable;
+
+public class OnlineUser implements Serializable {
+
+	private static final long serialVersionUID = -1453436025062204720L;
 	private int id;
 	private String username;
 	private int power;

@@ -21,7 +21,8 @@
 		<h1>欢迎你，小伙伴。</h1>
 		<p>要使用功能，可是要登录的呀。</p>
 		<p>
-			<a class="btn btn-primary btn-lg" role="button">单击左侧以开始</a>
+			<s:if test="#session.visitor == null"> <a class="btn btn-primary btn-lg" role="button" href="login.jsp">登录</a></s:if>
+			<s:else><a class="btn btn-primary btn-lg" role="button">欢迎用户【<s:property value="#session.visitor.username" />】O(∩_∩)O~~</a></s:else>
 		</p>
 	</div>
 	<br>

@@ -25,33 +25,21 @@ public class ListCard extends ActionSupport {
 	public String execute() throws Exception {
 		OnlineUser visitor = SessionOperationAdapter.sessionGetUser();
 
-		if (visitor == null)
-			return "novisitor";
-
 		cardlist = Database.getCardlist(visitor.getId(), 0);
-		System.out.println(cardlist.toString());
 		return "success";
 	}
 
 	public String list() throws Exception {
 		OnlineUser visitor = SessionOperationAdapter.sessionGetUser();
 
-		if (visitor == null)
-			return "novisitor";
-
 		cardlist = Database.getCardlist(visitor.getId(), 0);
-		System.out.println(cardlist.toString());
 		return "success";
 	}
 
 	public String recycle() throws Exception {
 		OnlineUser visitor = SessionOperationAdapter.sessionGetUser();
-
-		if (visitor == null)
-			return "novisitor";
-
+		
 		cardlist = Database.getCardlist(visitor.getId(), 1);
-		System.out.println(cardlist.toString());
 		return "recycle";
 	}
 }

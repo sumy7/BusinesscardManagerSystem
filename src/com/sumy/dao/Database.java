@@ -14,27 +14,28 @@ import com.sumy.type.Card;
 import com.sumy.type.OnlineUser;
 
 public class Database {
-	private static IDatabase database = MysqlDao.getInstance();
 
 	public static void RegistUser(String username, String password, int power)
 			throws Exception {
 		String sql = "insert into user(logname,passwd,power) values(?,?,?)";
-		Connection conn = database.getConn();
+		Connection conn = JdbcUtil.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, username);
 		ps.setString(2, password);
 		ps.setInt(3, power);
 		ps.execute();
+		JdbcUtil.free1(ps, conn);
 	}
 
 	public static OnlineUser checkuser(String username, String password)
 			throws Exception {
 		String sql = "select * from user where logname like ?;";
-		Connection conn = database.getConn();
+		Connection conn = JdbcUtil.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, username);
 		ResultSet rs = ps.executeQuery();
 		List rslist = CovertList.convertList(rs);
+		JdbcUtil.free2(rs, ps, conn);
 		for (int i = 0; i < rslist.size(); i++) {
 			Map rowmap = (HashMap) rslist.get(i);
 			if (rowmap.get("logname").equals(username)
@@ -51,11 +52,12 @@ public class Database {
 
 	public static OnlineUser findUserbyname(String username) throws Exception {
 		String sql = "select * from user where logname like ?;";
-		Connection conn = database.getConn();
+		Connection conn = JdbcUtil.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, username);
 		ResultSet rs = ps.executeQuery();
 		List rslist = CovertList.convertList(rs);
+		JdbcUtil.free2(rs, ps, conn);
 		for (int i = 0; i < rslist.size(); i++) {
 			Map rowmap = (HashMap) rslist.get(i);
 			if (rowmap.get("logname").equals(username)) {
@@ -69,15 +71,11 @@ public class Database {
 		return null;
 	}
 
-	public static Connection getConnection() {
-		return database.getConn();
-	}
-
 	public static ArrayList<Card> getCardlist(int owner, int isdel)
 			throws Exception {
 		ArrayList<Card> resultlist = new ArrayList<Card>();
 		String sql = "select * from cardinfo where isdel=? and owner=?;";
-		Connection conn = getConnection();
+		Connection conn = JdbcUtil.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, isdel);
 		ps.setInt(2, owner);
@@ -96,6 +94,7 @@ public class Database {
 			card.setIsdel(rs.getInt(9));
 			resultlist.add(card);
 		}
+		JdbcUtil.free2(rs, ps, conn);
 		return resultlist;
 	}
 
@@ -104,7 +103,7 @@ public class Database {
 			throws Exception {
 		ArrayList<Card> resultlist = new ArrayList<Card>();
 		String sql = "select * from cardinfo where (name like ? or position like ? or tel like ? or email like ? or address like ?) and owner=? and isdel=?;";
-		Connection conn = getConnection();
+		Connection conn = JdbcUtil.getConnection();
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, "%" + name + "%");
 		ps.setString(2, "%" + position + "%");
@@ -127,13 +126,13 @@ public class Database {
 			card.setOwner(rs.getInt(8));
 			card.setIsdel(rs.getInt(9));
 			resultlist.add(card);
-			System.out.println(rs.toString());
 		}
+		JdbcUtil.free2(rs, ps, conn);
 		return resultlist;
 	}
 
 	public static Card getCardbyId(int id) throws Exception {
-		Connection conn = getConnection();
+		Connection conn = JdbcUtil.getConnection();
 		String sql = "select * from cardinfo where id=?;";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, id);
@@ -151,39 +150,43 @@ public class Database {
 			card.setOwner(rs.getInt(8));
 			card.setIsdel(rs.getInt(9));
 		}
+		JdbcUtil.free2(rs, ps, conn);
 		return card;
 	}
 
 	public static boolean moveCardtoRecycle(int id) throws Exception {
-		Connection conn = getConnection();
+		Connection conn = JdbcUtil.getConnection();
 		String sql = "update cardinfo set isdel=1 where id=?;";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, id);
 		ps.execute();
+		JdbcUtil.free1(ps, conn);
 		return true;
 	}
 
 	public static boolean destroyCardfromRecycle(int id) throws Exception {
-		Connection conn = getConnection();
+		Connection conn = JdbcUtil.getConnection();
 		String sql = "delete from cardinfo where id=?;";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, id);
 		ps.execute();
+		JdbcUtil.free1(ps, conn);
 		return true;
 	}
 
 	public static boolean moveCardtoList(int id) throws Exception {
-		Connection conn = getConnection();
+		Connection conn = JdbcUtil.getConnection();
 		String sql = "update cardinfo set isdel=0 where id=?;";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1, id);
 		ps.execute();
+		JdbcUtil.free1(ps, conn);
 		return true;
 	}
 
 	public static boolean insertNewCard(Card usercard, String Photoname,
 			int visitorId) throws Exception {
-		Connection conn = getConnection();
+		Connection conn = JdbcUtil.getConnection();
 		String sql;
 		sql = "insert into cardinfo(name,position,tel,email,address,photo,owner,isdel) values(?,?,?,?,?,?,?,?);";
 		PreparedStatement ps = conn.prepareStatement(sql);
@@ -196,12 +199,13 @@ public class Database {
 		ps.setInt(7, visitorId);
 		ps.setInt(8, 0);
 		ps.execute();
+		JdbcUtil.free1(ps, conn);
 		return true;
 	}
 
 	public static boolean modifyCard(Card usercard, String Photoname)
 			throws Exception {
-		Connection conn = getConnection();
+		Connection conn = JdbcUtil.getConnection();
 		String sql;
 		if (Photoname == null) {
 			sql = "update cardinfo set name=?,position=?,tel=?,email=?,address=?,owner=?,isdel=? where id=?;";
@@ -215,6 +219,7 @@ public class Database {
 			ps.setInt(7, 0);
 			ps.setInt(8, usercard.getId());
 			ps.execute();
+			JdbcUtil.free1(ps, conn);
 		} else {
 			sql = "update cardinfo set name=?,position=?,tel=?,email=?,address=?,photo=?,owner=?,isdel=? where id=?;";
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -228,6 +233,7 @@ public class Database {
 			ps.setInt(8, 0);
 			ps.setInt(9, usercard.getId());
 			ps.execute();
+			JdbcUtil.free1(ps, conn);
 		}
 		return true;
 	}

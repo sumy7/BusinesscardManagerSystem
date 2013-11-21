@@ -6,6 +6,11 @@ Simple Card Manager System for J2EE Homework.
 演示地址：[http://sumycard.duapp.com/](http://sumycard.duapp.com/)  
 演示地址的代码根据演示空间的特性，重构了**数据库类**和 **Session** 操作，已经修复 session 的显示问题和部分编码问题。  
 
+### 最近更新
+
+统一提示信息的风格。  
+演示地址提示信息乱码解决。  
+
 ### 简介
 
 *2013-11-4 需求更新*  
@@ -47,7 +52,7 @@ Simple Card Manager System for J2EE Homework.
 5. 删除名片到回收站
 6. 从回收站还原名片
 7. 从回收站彻底删除名片
-8. 搜索名片
+8. 搜索名片，高亮显示搜索关键字
 9. 注册页面用户名已存在提示，注册页面重复输入密码不相等提示
 10. 在浏览名片时查找名片
 11. 以仿真形式显示名片  
@@ -56,7 +61,7 @@ Simple Card Manager System for J2EE Homework.
 ####还想实现的功能有：
 
 1. **需求更新：** 可以在回收站界面查找名片  
-2. 需要重写 DatabaseDAO  
+2. 对输入数据进行判断
 3. 等等
 
 #### 存在的问题
@@ -144,6 +149,8 @@ Struts2 - JSP 中获取：
 8.在资源管理器中删除工程的文件之后重新打开工程时，出现`Could not open the editor`异常。  
 
 打开 Myeclipse 之后，在左侧文件管理器里按 F5 刷新资源。重新打开需要的文件即可。  
+
+9.Java String的中文字符的存储编码为 Unicode ，如果出现内部乱码，可以考虑手动将中文编码为 Unicode 存储。  
 
 ### 声明
 

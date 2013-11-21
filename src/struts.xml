@@ -10,57 +10,79 @@
 	<constant name="struts.i18n.encoding" value="utf-8"></constant>
 
 	<package name="struts2" extends="struts-default">
+		<interceptors>
+			<interceptor name="islogin"
+				class="com.sumy.interceptor.CheckLoginInterceptor">
+			</interceptor>
+			<interceptor-stack name="mydefault">
+			    <interceptor-ref name="islogin" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
 		<global-results>
-			<result name="novisitor">/login.jsp</result>
+			<result name="novisitor" type="redirectAction">toGotoLogin</result>
 		</global-results>
+		<action name="toGotoLogin" class="com.sumy.action.CheckUser"
+			method="redirect">
+			<result name="success">/login.jsp</result>
+		</action>
 		<action name="toLogin" class="com.sumy.action.CheckUser">
 			<result name="success">/index.jsp</result>
-			<result name="error">/login.jsp?id=1</result>
-			<result name="failer">/login.jsp?id=0</result>
+			<result name="error">/login.jsp</result>
+			<result name="failer">/login.jsp</result>
 		</action>
 		<action name="toLogout" class="com.sumy.action.CheckUser"
 			method="logout">
 			<result name="success">/logout.jsp</result>
 		</action>
 		<action name="toRegist" class="com.sumy.action.RegistUser">
-			<result name="success">/login.jsp?id=2</result>
-			<result name="notequal">/register.jsp?id=0</result>
-			<result name="error">/register.jsp?id=1</result>
-			<result name="infonull">/register.jsp?id=1</result>
-			<result name="nameexist">/register.jsp?id=1</result>
+			<result name="success">/login.jsp</result>
+			<result name="notequal">/register.jsp</result>
+			<result name="error">/register.jsp</result>
+			<result name="infonull">/register.jsp</result>
+			<result name="nameexist">/register.jsp</result>
 		</action>
 		<action name="toAddCard" class="com.sumy.action.AddCard">
-			<result name="success" type="redirect">toListCard_list</result>
+			<result name="success" type="chain">toListCard_list</result>
 			<result name="badcard">/usercard/add.jsp</result>
 			<result name="error">/index.jsp</result>
+			<interceptor-ref name="mydefault" />
 		</action>
 		<action name="toInputCard" class="com.sumy.action.AddCard"
 			method="redirect">
 			<result name="success">/usercard/add.jsp</result>
+			<interceptor-ref name="mydefault" />
 		</action>
 		<action name="toListCard_*" class="com.sumy.action.ListCard"
 			method="{1}">
 			<result name="success">/usercard/list.jsp</result>
 			<result name="recycle">/usercard/recycle.jsp</result>
+			<interceptor-ref name="mydefault" />
 		</action>
 		<action name="toModifyCard" class="com.sumy.action.ModifyCard">
 			<result name="success">/usercard/modify.jsp</result>
+			<interceptor-ref name="mydefault" />
 		</action>
 		<action name="toUpdateCard" class="com.sumy.action.UpdateCard">
-			<result name="success" type="redirect">toListCard_list</result>
+			<result name="success" type="chain">toListCard_list</result>
+			<interceptor-ref name="mydefault" />
 		</action>
 		<action name="toDelCard" class="com.sumy.action.DeleteCard">
-			<result name="success" type="redirect">toListCard_list</result>
+			<result name="success" type="chain">toListCard_list</result>
+			<interceptor-ref name="mydefault" />
 		</action>
 		<action name="toDestroyCard" class="com.sumy.action.DestroyCard">
-			<result name="success" type="redirect">toListCard_recycle</result>
+			<result name="success" type="chain">toListCard_recycle</result>
+			<interceptor-ref name="mydefault" />
 		</action>
 		<action name="toRecycleCard" class="com.sumy.action.RecycleCard">
-			<result name="success" type="redirect">toListCard_recycle</result>
+			<result name="success" type="chain">toListCard_recycle</result>
+			<interceptor-ref name="mydefault" />
 		</action>
 		<action name="toSearchCard" class="com.sumy.action.SearchCard">
 			<result name="nokeyword">/usercard/search.jsp</result>
 			<result name="success">/usercard/search.jsp</result>
+			<interceptor-ref name="mydefault" />
 		</action>
 	</package>
 
